@@ -2,6 +2,7 @@ const CONFIG = {
   nome: "", // Ex.: "Marta". Deixa vazio para mostrar apenas "Olá."
   respostaCopiada: "A tua mensagem de ontem foi péssima, mas admito que este site teve piada 😂",
   endpointResposta: "/api/resposta",
+  DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/1502074533379702874/SGiRvRK0OaRhT_VZ-jn44eyKzygQxBNNKLWIh6-40_P2-ZxccJUEo8Bj-xoi8e3z7MLV"
 };
 
 const stepNames = {
