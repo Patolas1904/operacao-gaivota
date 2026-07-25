@@ -1,6 +1,7 @@
 const CONFIG = {
   nome: "", // Ex.: "Marta". Deixa vazio para mostrar apenas "Olá."
   respostaCopiada: "A tua mensagem de ontem foi péssima, mas admito que este site teve piada 😂",
+  endpointResposta: "/api/resposta",
 };
 
 const stepNames = {
@@ -15,6 +16,9 @@ const state = {
   currentStep: 1,
   selectedResponse: "",
   verdicts: [],
+  submissionId: createSubmissionId(),
+  submitted: false,
+  submissionSucceeded: false,
 };
 
 const steps = [...document.querySelectorAll(".step")];
@@ -23,9 +27,17 @@ const progressCount = document.getElementById("progressCount");
 const progressBar = document.getElementById("progressBar");
 const toast = document.getElementById("toast");
 const nameGreeting = document.getElementById("nameGreeting");
+const finalContinue = document.getElementById("finalContinue");
+const submissionFeedback = document.getElementById("submissionFeedback");
+const deliveryStatus = document.getElementById("deliveryStatus");
 
 if (CONFIG.nome.trim()) {
   nameGreeting.textContent = `, ${CONFIG.nome.trim()}.`;
+}
+
+function createSubmissionId() {
+  if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+  return `gaivota-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
 function showToast(message) {
@@ -56,12 +68,79 @@ function goToStep(target) {
   progressBar.style.width = `${state.currentStep * 20}%`;
 }
 
-document.addEventListener("click", (event) => {
+function setDeliveryStatus(success) {
+  deliveryStatus.hidden = false;
+  deliveryStatus.textContent = success
+    ? "Decisão enviada. O conteúdo entregue inclui apenas as escolhas feitas nesta página."
+    : "A decisão não foi enviada automaticamente. O resto do site continua a funcionar normalmente.";
+}
+
+async function submitChoices() {
+  if (state.submitted) return state.submissionSucceeded;
+
+  state.verdicts = [...document.querySelectorAll('#verdictGrid input:checked')]
+    .map((input) => input.value);
+
+  finalContinue.disabled = true;
+  finalContinue.classList.add("is-loading");
+  finalContinue.innerHTML = 'A enviar decisão <span class="loading-dots" aria-hidden="true">…</span>';
+  submissionFeedback.textContent = "A enviar apenas as opções selecionadas…";
+
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 8000);
+
+  try {
+    const response = await fetch(CONFIG.endpointResposta, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        submissionId: state.submissionId,
+        verdicts: state.verdicts,
+        selectedResponse: state.selectedResponse,
+        consent: true,
+        siteVersion: "2.0",
+      }),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    state.submitted = true;
+    state.submissionSucceeded = true;
+    submissionFeedback.textContent = "Decisão enviada com sucesso.";
+    showToast("Decisão enviada");
+    return true;
+  } catch (error) {
+    console.error("Não foi possível enviar a decisão:", error);
+    state.submitted = true;
+    state.submissionSucceeded = false;
+    submissionFeedback.textContent = "Não foi possível enviar automaticamente. Podes continuar na mesma.";
+    showToast("Envio indisponível — o site continua");
+    return false;
+  } finally {
+    window.clearTimeout(timeoutId);
+    finalContinue.classList.remove("is-loading");
+    finalContinue.innerHTML = 'Enviar decisão e continuar <span>→</span>';
+    finalContinue.disabled = false;
+  }
+}
+
+document.addEventListener("click", async (event) => {
   const nextButton = event.target.closest("[data-next]");
   if (nextButton) {
-    if (state.currentStep === 3) {
-      state.verdicts = [...document.querySelectorAll('#verdictGrid input:checked')].map((input) => input.value);
+    if (nextButton.id === "finalContinue") {
+      if (!state.selectedResponse) return;
+      const success = await submitChoices();
+      setDeliveryStatus(success);
+      goToStep(nextButton.dataset.next);
+      return;
     }
+
+    if (state.currentStep === 3) {
+      state.verdicts = [...document.querySelectorAll('#verdictGrid input:checked')]
+        .map((input) => input.value);
+    }
+
     goToStep(nextButton.dataset.next);
     return;
   }
@@ -81,7 +160,8 @@ document.querySelectorAll(".choice-btn").forEach((button) => {
     document.querySelectorAll(".choice-btn").forEach((item) => item.classList.remove("selected"));
     button.classList.add("selected");
     state.selectedResponse = button.dataset.response;
-    document.getElementById("finalContinue").disabled = false;
+    finalContinue.disabled = false;
+    submissionFeedback.textContent = "";
   });
 });
 
@@ -109,10 +189,15 @@ document.getElementById("copyButton").addEventListener("click", async () => {
 document.getElementById("restartButton").addEventListener("click", () => {
   document.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
   document.querySelectorAll(".choice-btn").forEach((item) => item.classList.remove("selected"));
-  document.getElementById("finalContinue").disabled = true;
+  finalContinue.disabled = true;
   document.getElementById("copyResult").hidden = true;
   document.getElementById("evidenceResponse").hidden = true;
+  deliveryStatus.hidden = true;
+  submissionFeedback.textContent = "";
   state.selectedResponse = "";
   state.verdicts = [];
+  state.submitted = false;
+  state.submissionSucceeded = false;
+  state.submissionId = createSubmissionId();
   goToStep(1);
 });

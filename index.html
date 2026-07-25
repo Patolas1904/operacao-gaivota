@@ -107,7 +107,10 @@
           <button class="choice-btn" data-response="Não quero responder, mas sobreviveste">Não quero responder, mas sobreviveste</button>
         </div>
 
-        <button class="btn btn-primary full-width" id="finalContinue" data-next="5" disabled>Registar decisão e continuar <span>→</span></button>
+        <p class="small-note" role="note"><strong>Envio transparente:</strong> ao carregares no botão abaixo, apenas estas opções e a decisão final são enviadas ao dono do site. A mensagem recebida inclui apenas essas escolhas, sem nome ou conta do Instagram.</p>
+
+        <button class="btn btn-primary full-width" id="finalContinue" data-next="5" disabled>Enviar decisão e continuar <span>→</span></button>
+        <p class="submission-feedback" id="submissionFeedback" role="status" aria-live="polite"></p>
       </div>
 
       <div class="step" data-step="5">
@@ -120,7 +123,9 @@
           <span class="code-status">VALIDADO PELO DEPARTAMENTO DE MÁS IDEIAS</span>
         </div>
 
-        <p>Carrega no botão para copiar uma resposta oficial e manda-a no Instagram. O botão não publica nem envia nada sozinho.</p>
+        <p class="small-note" id="deliveryStatus" role="status" aria-live="polite" hidden></p>
+
+        <p>Carrega no botão para copiar uma resposta oficial e manda-a no Instagram. Este botão apenas copia texto e não envia mensagens.</p>
         <button class="btn btn-primary full-width" id="copyButton">Copiar resposta oficial</button>
         <button class="btn btn-ghost full-width" data-exit="true">Não copiar nada e desaparecer misteriosamente</button>
 
@@ -142,7 +147,7 @@
     </section>
 
     <footer>
-      <span>Sem cookies, sem formulários e sem recolha de dados.</span>
+      <span>Sem cookies. As escolhas só são enviadas após confirmação.</span>
       <span>Feito sob supervisão duvidosa.</span>
     </footer>
   </main>
