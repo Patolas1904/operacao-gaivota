@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6efe4" />
+  <meta name="description" content="Operação Gaivota — um pedido de desculpa desnecessariamente elaborado." />
+  <title>Operação Gaivota</title>
+  <link rel="icon" href="./gaivota.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Recomeçar Operação Gaivota">
+        <span class="brand-mark">🕊️</span>
+        <span>OPERAÇÃO GAIVOTA</span>
+      </a>
+      <div class="case-number">CASO #2507</div>
+    </header>
+
+    <section class="case-file" aria-live="polite">
+      <div class="progress-wrap" aria-label="Progresso">
+        <div class="progress-labels">
+          <span id="progressText">Introdução</span>
+          <span id="progressCount">1 / 5</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="step active" data-step="1">
+        <div class="eyebrow">PEDIDO DE DESCULPA OFICIAL</div>
+        <h1>Olá<span id="nameGreeting">.</span></h1>
+        <p class="lead">Sei que aparecer com um site depois do desastre de ontem provavelmente não ajuda a provar que sou uma pessoa normal.</p>
+        <p>Mas prometo que isto é apenas um pedido de desculpa de aproximadamente 30 segundos — dependendo da tua velocidade de leitura e tolerância a decisões questionáveis.</p>
+        <div class="button-stack">
+          <button class="btn btn-primary" data-next="2">Dar uma oportunidade ao site <span>→</span></button>
+          <button class="btn btn-ghost" data-exit="true">Não, vou preservar a minha sanidade</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="2">
+        <div class="eyebrow">CONTEXTO DO DESASTRE</div>
+        <h2>Apresento o principal suspeito.</h2>
+
+        <article class="suspect-card">
+          <div class="photo-frame">
+            <img src="./becas.svg" alt="Fotografia do Becas" id="becasPhoto" />
+            <span class="stamp">SUSPEITO PRINCIPAL</span>
+          </div>
+          <dl class="suspect-data">
+            <div><dt>Nome</dt><dd>Becas</dd></div>
+            <div><dt>Crime</dt><dd>Uso não autorizado de telemóvel alheio</dd></div>
+            <div><dt>Confiança atual</dt><dd>0%</dd></div>
+            <div><dt>Autorização futura</dt><dd>Revogada</dd></div>
+          </dl>
+        </article>
+
+        <p>Ontem, o Becas pegou no meu telemóvel e decidiu dar like numa quantidade criminosa das tuas fotografias antigas.</p>
+        <p>Eu não reparei logo porque — e esta parte parece inventada — <strong>uma gaivota tinha acabado de cagar em mim.</strong></p>
+        <p>Quando percebi o que ele tinha feito, fiquei nervoso e, numa tentativa brilhante de tornar tudo menos estranho, ainda respondi ao reel a que tinhas dado like.</p>
+        <p class="small-note">Não estou a culpar só o Becas. O telemóvel era meu e eu também podia ter parado antes de piorar tudo.</p>
+
+        <div class="button-stack">
+          <button class="btn btn-primary" data-next="3">Prosseguir para o julgamento <span>→</span></button>
+          <button class="btn btn-ghost evidence-btn" type="button">A história da gaivota precisa de provas</button>
+        </div>
+        <p class="evidence-response" id="evidenceResponse" hidden>Concordo. Infelizmente, a dignidade foi a única testemunha.</p>
+      </div>
+
+      <div class="step" data-step="3">
+        <div class="eyebrow">JÚRI POPULAR</div>
+        <h2>Escolhe todas as conclusões aplicáveis.</h2>
+        <p class="muted">Não existe resposta errada. Existem apenas diferentes níveis de condenação.</p>
+
+        <div class="verdict-grid" id="verdictGrid">
+          <label class="verdict"><input type="checkbox" value="Vai-te foder" /><span>Vai-te foder</span></label>
+          <label class="verdict"><input type="checkbox" value="Vou-te bloquear preventivamente" /><span>Vou-te bloquear preventivamente</span></label>
+          <label class="verdict"><input type="checkbox" value="O Becas é inútil" /><span>O Becas é inútil</span></label>
+          <label class="verdict"><input type="checkbox" value="O Becas está proibido de tocar em telemóveis" /><span>O Becas está proibido de tocar em telemóveis</span></label>
+          <label class="verdict"><input type="checkbox" value="A gaivota é a principal culpada" /><span>A gaivota é a principal culpada</span></label>
+          <label class="verdict"><input type="checkbox" value="Foi estranho, mas teve alguma piada" /><span>Foi estranho, mas teve alguma piada</span></label>
+          <label class="verdict verdict-wide"><input type="checkbox" value="Preciso de mais provas" /><span>Preciso de mais provas antes de tomar uma decisão</span></label>
+        </div>
+
+        <div class="button-stack">
+          <button class="btn btn-primary" data-next="4">Prosseguir para a sentença final <span>→</span></button>
+          <button class="btn btn-ghost" data-exit="true">Encerrar o processo aqui</button>
+        </div>
+      </div>
+
+      <div class="step" data-step="4">
+        <div class="eyebrow">DECLARAÇÃO FINAL</div>
+        <h2>A verdadeira razão deste site.</h2>
+        <p>Não estou à espera que isto te obrigue a responder, nem quero tornar a situação ainda mais desconfortável.</p>
+        <p>Só não queria que ficasses com a ideia de que fui deliberadamente ao teu perfil dar like em todas as fotografias antigas e depois tentei iniciar uma conversa da maneira mais estranha possível.</p>
+        <p>O Becas tratou da parte dos likes. Eu, num momento de nervosismo e péssima capacidade de decisão, tratei de piorar a situação ao responder ao reel.</p>
+        <p><strong>Queria apenas pedir desculpa e explicar o que aconteceu sem mandar cinco mensagens seguidas no Instagram.</strong></p>
+        <p class="small-note">Se preferires não responder, está genuinamente tudo bem.</p>
+
+        <div class="response-options">
+          <button class="choice-btn" data-response="Pedido de desculpa aceite">Pedido de desculpa aceite</button>
+          <button class="choice-btn" data-response="Continuas sob investigação">Continuas sob investigação</button>
+          <button class="choice-btn" data-response="Não quero responder, mas sobreviveste">Não quero responder, mas sobreviveste</button>
+        </div>
+
+        <button class="btn btn-primary full-width" id="finalContinue" data-next="5" disabled>Registar decisão e continuar <span>→</span></button>
+      </div>
+
+      <div class="step" data-step="5">
+        <div class="eyebrow">OPERAÇÃO CONCLUÍDA</div>
+        <h2>Controlo de danos finalizado.</h2>
+        <p>O código abaixo é extremamente importante e certamente realiza alguma função tecnológica avançada:</p>
+
+        <div class="code-box">
+          <code>G4IV0T4-BECAS-2026-C0NTR0L0-D4N0S</code>
+          <span class="code-status">VALIDADO PELO DEPARTAMENTO DE MÁS IDEIAS</span>
+        </div>
+
+        <p>Carrega no botão para copiar uma resposta oficial e manda-a no Instagram. O botão não publica nem envia nada sozinho.</p>
+        <button class="btn btn-primary full-width" id="copyButton">Copiar resposta oficial</button>
+        <button class="btn btn-ghost full-width" data-exit="true">Não copiar nada e desaparecer misteriosamente</button>
+
+        <div class="copy-result" id="copyResult" hidden>
+          <div class="success-icon">✓</div>
+          <h3>Copiado com sucesso.</h3>
+          <p id="copiedMessage"></p>
+          <p class="small-note">Esta é oficialmente a interação mais elaborada que já aconteceu por causa de uma gaivota e do Becas.</p>
+        </div>
+      </div>
+
+      <div class="step exit-step" data-step="exit">
+        <div class="exit-icon">🫡</div>
+        <div class="eyebrow">PROCESSO ENCERRADO</div>
+        <h2>Uma decisão perfeitamente compreensível.</h2>
+        <p>O departamento de controlo de danos respeita a tua escolha. Não tens de responder nem de continuar.</p>
+        <button class="btn btn-ghost" id="restartButton">Recomeçar, por razões desconhecidas</button>
+      </div>
+    </section>
+
+    <footer>
+      <span>Sem cookies, sem formulários e sem recolha de dados.</span>
+      <span>Feito sob supervisão duvidosa.</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./script.js"></script>
+</body>
+</html>
