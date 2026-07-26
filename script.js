@@ -1,6 +1,6 @@
 const CONFIG = {
   nome: "", // Ex.: "Marta". Deixa vazio para mostrar apenas "Olá."
-  respostaCopiada: "A tua mensagem de ontem foi péssima, mas admito que este site teve piada 😂",
+  respostaCopiada: "A tua mensagem do outro dia foi péssima, mas admito que este site teve piada 😂",
   endpointResposta: "/api/resposta",
 };
 
